@@ -306,6 +306,7 @@ class SharedRide {
           rideId: rideId,
           passengerName: passengerData.passengerName,
           passengerPhone: passengerData.passengerPhone,
+          passengerEmail: passengerData.passengerEmail,
           seatsBooked: seatsToBook,
           bookingDate: new Date(),
           status: 'confirmed'

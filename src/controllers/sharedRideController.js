@@ -177,7 +177,7 @@ const deleteSharedRide = async (req, res) => {
 const bookSharedRideSeat = async (req, res) => {
   try {
     const { rideId } = req.params;
-    const { passengerName, passengerPhone, seatsBooked } = req.body;
+    const { passengerName, passengerPhone, passengerEmail, seatsBooked } = req.body;
 
     if (!passengerName || !passengerPhone) {
       return res.status(400).json({
@@ -189,6 +189,7 @@ const bookSharedRideSeat = async (req, res) => {
     const passengerData = {
       passengerName,
       passengerPhone,
+      passengerEmail,
       seatsBooked: seatsBooked || 1
     };
 
