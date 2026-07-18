@@ -18,12 +18,13 @@ exports.getRates = async (req, res) => {
 
 exports.upsertRates = async (req, res) => {
   try {
-    const { ratePerKm, rateLKRPerKm, exchangeRate } = req.body || {};
+    const { ratePerKm, rateLKRPerKm, exchangeRate, privateDistanceMultiplier } = req.body || {};
 
     // Basic validation, coerce to numbers when possible
     const usd = typeof ratePerKm === 'number' ? ratePerKm : (typeof ratePerKm === 'string' ? parseFloat(ratePerKm) : NaN);
     const lkr = typeof rateLKRPerKm === 'number' ? rateLKRPerKm : (typeof rateLKRPerKm === 'string' ? parseFloat(rateLKRPerKm) : NaN);
     const exch = typeof exchangeRate === 'number' ? exchangeRate : (typeof exchangeRate === 'string' ? parseFloat(exchangeRate) : NaN);
+    const pMultiplier = typeof privateDistanceMultiplier === 'number' ? privateDistanceMultiplier : (typeof privateDistanceMultiplier === 'string' ? parseFloat(privateDistanceMultiplier) : NaN);
 
     if (isNaN(usd) || usd <= 0) {
       return res.status(400).json({ success: false, message: 'Invalid ratePerKm' });
@@ -33,6 +34,7 @@ exports.upsertRates = async (req, res) => {
       ratePerKm: usd,
       rateLKRPerKm: !isNaN(lkr) && lkr > 0 ? lkr : Math.round(usd * (isNaN(exch) ? 330 : exch) * 100) / 100,
       exchangeRate: !isNaN(exch) && exch > 0 ? exch : (isNaN(lkr) || lkr === 0 ? 330 : (lkr / usd)),
+      privateDistanceMultiplier: !isNaN(pMultiplier) && pMultiplier > 0 ? pMultiplier : 2, // Default to 2
       updatedAt: new Date().toISOString(),
     };
 

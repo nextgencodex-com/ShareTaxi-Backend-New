@@ -94,6 +94,7 @@ app.use('/api/private-rides', privateRideRoutes);
 app.use('/api/personal-rides', personalRideRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/rates', ratesRoutes);
+app.use('/api/upload', require('./routes/uploadRoutes'));
 
 // Catch 404 and forward to error handler
 app.use(notFound);
