@@ -19,6 +19,7 @@ const personalRideRoutes = require('./routes/personalRideRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const ratesRoutes = require('./routes/ratesRoutes');
 const safariParkRoutes = require('./routes/safariParkRoutes');
+const safariRideRoutes = require('./routes/safariRideRoutes');
 
 // Import middleware
 const { errorHandler, notFound } = require('./middleware');
@@ -96,6 +97,7 @@ app.use('/api/personal-rides', personalRideRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/rates', ratesRoutes);
 app.use('/api/safari-parks', safariParkRoutes);
+app.use('/api/safari-rides', safariRideRoutes);
 app.use('/api/upload', require('./routes/uploadRoutes'));
 
 // Catch 404 and forward to error handler
@@ -131,3 +133,4 @@ process.on('SIGINT', () => {
 });
 
 module.exports = app;
+
