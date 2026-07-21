@@ -256,6 +256,7 @@ class Vehicle {
     return {
       name: this.name,
       price: this.price,
+      ratePerKm: this.ratePerKm,
       passengers: this.passengers,
       luggage: this.luggage,
       handCarry: this.handCarry,
@@ -263,6 +264,7 @@ class Vehicle {
       features: this.features,
       gradient: this.gradient,
       buttonColor: this.buttonColor,
+      vehicleType: this.vehicleType,
       status: this.status,
       createdAt: this.createdAt,
       isAvailable: this.isAvailable
