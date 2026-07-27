@@ -71,14 +71,16 @@ class SafariRide {
         totalSeats: (() => {
           if (rideData.totalSeats !== undefined && rideData.totalSeats !== null) return Number(rideData.totalSeats)
           if (rideData.seats && typeof rideData.seats.total !== 'undefined' && rideData.seats.total !== null) return Number(rideData.seats.total)
-          return 0
+          // Default to 6 seats for shared safari rides
+          return 6
         })(),
         availableSeats: (() => {
           if (rideData.availableSeats !== undefined && rideData.availableSeats !== null) return Number(rideData.availableSeats)
           if (rideData.seats && typeof rideData.seats.available !== 'undefined' && rideData.seats.available !== null) return Number(rideData.seats.available)
-          // If available not provided, default to totalSeats (assume all seats available when created)
-          const ts = (rideData.totalSeats !== undefined && rideData.totalSeats !== null) ? Number(rideData.totalSeats) : (rideData.seats && typeof rideData.seats.total !== 'undefined' ? Number(rideData.seats.total) : 0)
-          return ts
+          // Default: available = totalSeats - people (booked seats)
+          const total = (rideData.totalSeats !== undefined && rideData.totalSeats !== null) ? Number(rideData.totalSeats) : (rideData.seats && typeof rideData.seats.total !== 'undefined' ? Number(rideData.seats.total) : 6)
+          const booked = Number(rideData.people || rideData.passengers || 0)
+          return Math.max(0, total - booked)
         })(),
         price: rideData.price !== undefined ? rideData.price : rideData.price || '',
         frequency: rideData.frequency || 'one-time',
